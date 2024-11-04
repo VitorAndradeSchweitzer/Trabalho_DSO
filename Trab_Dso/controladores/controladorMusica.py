@@ -54,25 +54,50 @@ class ControladorMusica:
                 artista = self.__controlador_biblioteca.retornar_artista_por_id(int(opcoes))
                 dados_musica["artista"] = artista
             else:
-                novo_artista = Artista(opcoes)
+                print(f"opcoes é {opcoes}")
+                achado = False
+                print("novo artista é false")
+                for artista in self.__controlador_biblioteca.bibliotecademusica.artistas:
+                    print("entrou no loop")
+                    if artista.nome == opcoes:
+                        novo_artista = artista
+                        achado = True
+                if achado == False:
+                        print("achado entrou aqui")
+                        novo_artista = Artista(opcoes)
                 dados_musica["artista"] = novo_artista
             
+
             opcoes_genero = self.__controlador_biblioteca.lista_de_genero()
             opcoes = self.__tela.escolher_ou_adicionar_genero(opcoes_genero)
             if opcoes.isdigit():
                 genero = self.__controlador_biblioteca.retornar_genero_por_id(int(opcoes))
                 dados_musica["genero"] = genero
             else:
-                novo_genero = Genero(opcoes)
+                achado = False
+
+                for genero in self.__controlador_biblioteca.bibliotecademusica.generos:
+                    if genero.nome == opcoes:
+                        novo_genero = genero
+                        achado = True
+                if achado == False:
+                        novo_genero = Genero(opcoes)
                 dados_musica["genero"] = novo_genero
 
+            
             opcoes_idioma = self.__controlador_biblioteca.lista_de_idioma()
             opcoes = self.__tela.escolher_ou_adicionar_idioma(opcoes_idioma)
             if opcoes.isdigit():
                 idioma = self.__controlador_biblioteca.retornar_idioma_por_id(int(opcoes))
                 dados_musica["idioma"] = idioma
             else:
-                novo_idioma = Idioma(opcoes)
+                achado = False
+                for idioma in self.__controlador_biblioteca.bibliotecademusica.idiomas:
+                    if idioma.nome == opcoes:
+                        novo_idioma = idioma
+                        achado = True
+                if achado == False:
+                        novo_idioma = Idioma(opcoes)
                 dados_musica["idioma"] = novo_idioma
 
 
@@ -115,8 +140,9 @@ class ControladorMusica:
         resultados = self.__controlador_biblioteca.lista_de_artista()
         cont = 0
         for resultado in resultados:
-            cont +=1
+            
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
+            cont +=1
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
         for musica in lista_musicas:
@@ -128,8 +154,9 @@ class ControladorMusica:
         resultados = self.__controlador_biblioteca.lista_de_genero()
         cont = 0
         for resultado in resultados:
-            cont += 1
+
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
+            cont += 1
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
         for musica in lista_musicas:
@@ -140,8 +167,9 @@ class ControladorMusica:
         resultados = self.__controlador_biblioteca.lista_de_idioma()
         cont=0
         for resultado in resultados:
-            cont += 1
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
+            cont += 1
+
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
         for musica in lista_musicas:

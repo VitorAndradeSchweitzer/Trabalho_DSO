@@ -60,24 +60,7 @@ class Cliente:
         self.__prioridade_fila = prioridade_fila
 
     def pedir_musica(self, biblioteca_de_musicas: BibliotecaDeMusicas, fila: Fila_Karaoke):
-        if isinstance(biblioteca_de_musicas, BibliotecaDeMusicas) and isinstance(fila, Fila_Karaoke):
-                buscar_criterio = int(input("Gostaria de buscar música por: Gênero[1], Artista[2],Idioma[3]? ou Apenas Nome[4]?"))
-                if buscar_criterio == 1:
-                    criterio = "Gênero"
-                elif buscar_criterio == 2:
-                    criterio = "Artista"
-                elif buscar_criterio == 3:
-                    criterio = "Idioma"
-                else:
-                    criterio = "Apenas_Nome"
-
- 
-                buscar_filtro = str(input("Nome da música (caso não queira filtrar por nome ou ver todas as musicas, deixe em branco):"))
-                if not buscar_filtro.strip() : 
-                    buscar_filtro = ""
-                musica = biblioteca_de_musicas.buscar_musica(criterio, buscar_filtro)
-                
-                fila.adicionar_na_fila(self, musica)
+        pass
             
     def adicionar_musica_biblioteca(self,bibliotecademusicas : BibliotecaDeMusicas, musica: Musica ):
         if isinstance(bibliotecademusicas, BibliotecaDeMusicas) and isinstance(musica, Musica):    

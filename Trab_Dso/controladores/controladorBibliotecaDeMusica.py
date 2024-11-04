@@ -11,6 +11,9 @@ class ControladorBibliotecaDeMusica:
         self.__controlador_sistema = controlador_sistema
         self.__bibliotecademusica = BibliotecaDeMusicas()
 
+    @property
+    def bibliotecademusica(self):
+        return self.__bibliotecademusica
     def retornar_ultimo_codigo(self) -> int:
         return len(self.__bibliotecademusica.musicas) + 1
 
