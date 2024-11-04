@@ -7,7 +7,6 @@ class ControladorSistema:
         self.__musica_controlador = controladorMusica.ControladorMusica(self)
         self.__fila_controlador = controladorFila.ControladorFila(self)
         self.__mesa_controlador = controladorMesa.ControladorMesa(self)
-
         self.__tela = telasistema.SystemScreen()
 
     @property
