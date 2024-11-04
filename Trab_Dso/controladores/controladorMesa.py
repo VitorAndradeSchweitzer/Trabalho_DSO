@@ -36,7 +36,11 @@ class ControladorMesa():
     
     def lista_mesa(self):
         for mesa in self.__mesas:
-            self.__tela.mostrar_mesa({"numero" : mesa.numero, "clientes": mesa.clientes})
+            clientes = ""
+            for cliente in mesa.clientes:
+                clientes += cliente.nome
+                clientes += ' ,'
+            self.__tela.mostrar_mesa({"numero" : mesa.numero, "clientes": clientes})
 
 
     def abrir_tela(self):

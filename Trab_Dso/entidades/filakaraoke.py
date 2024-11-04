@@ -41,7 +41,7 @@ class Fila_Karaoke:
             cantor = self.__fila_karaoke[0]
             cantor[1].incrementar_contador()
             cantor[1].ja_cantada = True
-            self.__fila_karaoke.pop()
+            self.__fila_karaoke.pop(0)
             return cantor
 
     def ver_posicao(self, cliente):
