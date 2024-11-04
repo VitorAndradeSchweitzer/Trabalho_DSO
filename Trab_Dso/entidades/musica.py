@@ -62,9 +62,9 @@ class Musica():
 
     def incrementar_contador(self):
         self.__contador += 1
-        self.__genero.incrementar_contador_genero()
-        self.__artista.incrementar_contador_artista()
-        self.__idioma.incrementar_contador_idioma()
+        self.__genero.incrementar_contador()
+        self.__artista.incrementar_contador()
+        self.__idioma.incrementar_contador()
 
     
     def __str__(self):
