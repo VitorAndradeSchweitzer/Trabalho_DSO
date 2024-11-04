@@ -140,7 +140,10 @@ class ControladorMusica:
         resultados = self.__controlador_biblioteca.lista_de_artista()
         cont = 0
         for resultado in resultados:
+<<<<<<< HEAD
             
+=======
+>>>>>>> 26f4c932e48b5b118d782c5aaf862daa76ebc7ee
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
             cont +=1
         id_escolhido = self.__tela.recebe_id_para_listar()
@@ -154,9 +157,14 @@ class ControladorMusica:
         resultados = self.__controlador_biblioteca.lista_de_genero()
         cont = 0
         for resultado in resultados:
+<<<<<<< HEAD
 
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
             cont += 1
+=======
+            self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
+            cont +=1
+>>>>>>> 26f4c932e48b5b118d782c5aaf862daa76ebc7ee
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
         for musica in lista_musicas:
@@ -169,7 +177,10 @@ class ControladorMusica:
         for resultado in resultados:
             self.__tela.mostrar_mensagem(f"{cont} - {resultado}")
             cont += 1
+<<<<<<< HEAD
 
+=======
+>>>>>>> 26f4c932e48b5b118d782c5aaf862daa76ebc7ee
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
         for musica in lista_musicas:

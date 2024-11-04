@@ -7,7 +7,6 @@ class ControladorSistema:
         self.__musica_controlador = controladorMusica.ControladorMusica(self)
         self.__fila_controlador = controladorFila.ControladorFila(self)
         self.__mesa_controlador = controladorMesa.ControladorMesa(self)
-
         self.__tela = telasistema.SystemScreen()
 
     @property
@@ -23,6 +22,7 @@ class ControladorSistema:
             2: self.__musica_controlador.abrir_tela,
             3: self.__fila_controlador.abrir_tela,
             4: self.__mesa_controlador.abrir_tela,
+            5: self.__bibliotecademusicas.abrir_tela,
             0: self.fechar_sistema
         }
 
