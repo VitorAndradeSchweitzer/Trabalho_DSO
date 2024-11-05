@@ -16,9 +16,9 @@ class ControladorCliente():
         dados_cliente = self.__tela.receber_dados()
         
         try:
-            # self.validar_cpf(dados_cliente["cpf"])
-            # self.validar_email(dados_cliente["email"])
-            # self.validar_telefone(dados_cliente["telefone"])
+            self.validar_cpf(dados_cliente["cpf"])
+            self.validar_email(dados_cliente["email"])
+            self.validar_telefone(dados_cliente["telefone"])
             
             NovoCliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["email"], dados_cliente["telefone"])
             self.__clientes.append(NovoCliente)
