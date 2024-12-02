@@ -54,15 +54,16 @@ class ControladorMusica:
                 artista = self.__controlador_biblioteca.retornar_artista_por_id(int(opcoes))
                 dados_musica["artista"] = artista
             else:
+                print(f"opcoes é {opcoes}")
                 achado = False
- 
+                print("novo artista é false")
                 for artista in self.__controlador_biblioteca.bibliotecademusica.artistas:
-
+                    print("entrou no loop")
                     if artista.nome == opcoes:
                         novo_artista = artista
                         achado = True
                 if achado == False:
-
+                        print("achado entrou aqui")
                         novo_artista = Artista(opcoes)
                 dados_musica["artista"] = novo_artista
             
