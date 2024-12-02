@@ -16,9 +16,9 @@ class ControladorCliente():
         dados_cliente = self.__tela.receber_dados()
         
         try:
-            # self.validar_cpf(dados_cliente["cpf"])
-            # self.validar_email(dados_cliente["email"])
-            # self.validar_telefone(dados_cliente["telefone"])
+            self.validar_cpf(dados_cliente["cpf"])
+            self.validar_email(dados_cliente["email"])
+            self.validar_telefone(dados_cliente["telefone"])
             
             NovoCliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["email"], dados_cliente["telefone"])
             self.__clientes.append(NovoCliente)
@@ -73,8 +73,8 @@ class ControladorCliente():
 
 
     def lista_cliente(self):
-        for cliente in self.__clientes:
-            self.__tela.mostrar_cliente({"nome": cliente.nome,"cpf": cliente.cpf, "email" : cliente.email, "telefone": cliente.telefone})
+            # for cliente in self.__clientes:
+            self.__tela.mostrar_cliente(self.__clientes)
 
     # def retornar(self):
     #     self.__controlador_sistema 
