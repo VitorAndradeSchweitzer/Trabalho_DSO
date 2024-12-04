@@ -28,7 +28,10 @@ class ControladorSistema:
 
         while True:
             try:
-                opcao = self.__tela.mostrar_opcoes()
+                opcao = self.__tela.tela_opcoes()
+                if opcao == 0:
+                    self.fechar_sistema()
+                    break
                 if opcao in opcoes:
                     opcoes[opcao]()
                 else:
