@@ -39,32 +39,11 @@ class TelaCliente():
     ]
     self.__window = sg.Window('Sistema Karaoke').Layout(layout)
 
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-  # opção de tratamento: adicionar um if e só coletar nome e telefone se o button é 'Confirmar'
-
-
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-  # def tela_opcoes(self):
-  #   print("-------- CLIENTES ----------")
-  #   print("Escolha a opcao")
-  #   print("1 - Incluir cliente")
-  #   print("2 - Alterar cliente")
-  #   print("3 - Excluir cliente")
-  #   print("4 - Listar clientes")
-  #   print("0 - Retornar")
-
-    
-  #   opcao = int(input("Escolha a opcao: "))
-  #   while opcao > 4 or opcao < 0:
-  #         opcao = int(input("Escolha errada, selecione um valor válido: "))
-      
-  #   return opcao
-
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-
   def receber_dados(self):
+
     sg.ChangeLookAndFeel('DarkBrown2')
     layout = [
+
       [sg.Text('-------- DADOS CLIENTE ----------', font=("Fixedsys", 25))],
       [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
       [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
@@ -83,43 +62,20 @@ class TelaCliente():
     self.close()
     return {"nome": nome, "cpf": cpf, "email": email, "telefone": telefone}
 
-  # def receber_dados(self):
-  #   print("-------- DADOS cliente ----------")
-  #   nome = input("Nome: ")
-  #   cpf = input("CPF: ")
-  #   email = input("Email: ")
-  #   telefone = input("Telefone: ")
-
-  #   if isinstance(nome, str) and isinstance(telefone, str) and isinstance(cpf, str) and isinstance(email, str):
-  #     return {"nome": nome, "cpf": cpf, "email": email, "telefone": telefone}
-
   def mostrar_cliente(self, dados_cliente):
     string_todos_clientes = ''
     for cliente in dados_cliente:
       string_todos_clientes += f"{cliente.nome}, {cliente.cpf}" + "\n"
-
-      # string_todos_clientes = string_todos_clientes + "NOME DO AMIGO: " + str(dado["nome"]) + '\n'
-      # string_todos_clientes = string_todos_clientes + "CPF DO AMIGO: " + str(dado["cpf"]) + '\n'
-      # string_todos_clientes = string_todos_clientes + "EMAIL DO AMIGO: " + str(dado["email"]) + '\n'
-      # string_todos_clientes = string_todos_clientes + "FONE DO AMIGO: " + str(dado["telefone"]) + '\n\n'
-
     sg.Popup('-------- LISTA DE CLIENTES ----------', string_todos_clientes)
 
-
-
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-  # def mostrar_cliente(self, dados_cliente):
-  #   print("NOME DO cliente: ", dados_cliente["nome"])
-  #   print("CPF DO cliente: ", dados_cliente["cpf"])
-  #   print("EMAIL DO cliente", dados_cliente["email"])
-  #   print("FONE DO cliente: ", dados_cliente["telefone"])
-  #   print("\n")
-
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-
-  def seleciona_cliente(self):
+  def seleciona_cliente(self, dados_cliente):
+    string_todos_clientes = ''
+    for cliente in dados_cliente:
+      string_todos_clientes += f"{cliente.nome}, {cliente.cpf}" + "\n"
+    
     sg.ChangeLookAndFeel('DarkBrown2')
     layout = [
+      [sg.Text(string_todos_clientes)],
       [sg.Text('-------- SELECIONAR CLIENTE ----------', font=("Fixedsys", 25))],
       [sg.Text('Digite o CPF do cliente que deseja selecionar:', font=("Fixedsys", 15))],
       [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
@@ -131,10 +87,6 @@ class TelaCliente():
     cpf = values['cpf']
     self.close()
     return cpf
-
-  # def seleciona_cliente(self):
-  #   cpf = input("CPF do cliente que deseja selecionar: ")
-  #   return cpf
 
   def mostra_mensagem(self, msg):
     sg.popup("", msg)
