@@ -1,40 +1,13 @@
 import PySimpleGUI as sg
 
 class TelaCliente():
-  def __init__(self):  
-    self.__window = None 
+  def __init__(self):
+    self.__window = None
     self.init_opcoes()
 
-  def init_opcoes(self):
-    sg.theme_previewer()
-    sg.ChangeLookAndFeel('DarkTeal4')
-    layout = [
-      [sg.Text('-------- AMIGOS ----------', font=("Helvica", 25))],
-      [sg.Text('Escolha sua opção', font=("Helvica", 15))],
-      [sg.Radio('Incluir Amigo', "RD1", key='1')],
-      [sg.Radio('Alterar Amigo', "RD1", key='2')],
-      [sg.Radio('Listar Amigos', "RD1", key='3')],
-      [sg.Radio('Excluir Amigo', "RD1", key='4')],
-      [sg.Radio('Retornar', "RD1", key='0')],
-      [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
-    ]
-    self.__window = sg.Window('Sistema de livros').Layout(layout)
-    
 
   def tela_opcoes(self):
-    # print("-------- CLIENTES ----------")
-    # print("Escolha a opcao")
-    # print("1 - Incluir cliente")
-    # print("2 - Alterar cliente")
-    # print("3 - Excluir cliente")
-    # print("4 - Listar clientes")
-    # print("0 - Retornar")
-
-      # opcao = int(input("Escolha a opcao: "))
-      # while opcao > 4 or opcao < 0:
-      #       opcao = int(input("Escolha errada, selecione um valor válido: "))
-        
-      # return opcao
+    self.init_opcoes()
     button, values = self.open()
     if values['1']:
       opcao = 1
@@ -51,34 +24,76 @@ class TelaCliente():
     self.close()
     return opcao
 
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+  def init_opcoes(self):
+#    sg.theme_previewer()
+    sg.ChangeLookAndFeel('DarkBrown2')
+    layout = [
+      [sg.Text('-------- CLIENTES ----------', font=("Fixedsys", 25))],
+      [sg.Text('Escolha a opção', font=("Fixedsys", 15))],
+      [sg.Radio('Incluir Cliente', "RD1", key='1')],
+      [sg.Radio('Alterar Cliente', "RD1", key='2')],
+      [sg.Radio('Listar Cliente', "RD1", key='3')],
+      [sg.Radio('Excluir Cliente', "RD1", key='4')],
+      [sg.Radio('Retornar', "RD1", key='0')],
+      [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+    ]
+    self.__window = sg.Window('Sistema Karaoke').Layout(layout)
+
   def receber_dados(self):
-    print("-------- DADOS cliente ----------")
-    nome = input("Nome: ")
-    cpf = input("CPF: ")
-    email = input("Email: ")
-    telefone = input("Telefone: ")
 
-    if isinstance(nome, str) and isinstance(telefone, str) and isinstance(cpf, str) and isinstance(email, str):
-      return {"nome": nome, "cpf": cpf, "email": email, "telefone": telefone}
-      
+    sg.ChangeLookAndFeel('DarkBrown2')
+    layout = [
 
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+      [sg.Text('-------- DADOS CLIENTE ----------', font=("Fixedsys", 25))],
+      [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
+      [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+      [sg.Text('Email:', size=(15, 1)), sg.InputText('', key='email')],
+      [sg.Text('Telefone:', size=(15, 1)), sg.InputText('', key='telefone')],
+      [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+    ]
+    self.__window = sg.Window('Sistema Karaoke').Layout(layout)
+
+    button, values = self.open()
+    nome = values['nome']
+    cpf = values['cpf']
+    email = values['email']
+    telefone = values['telefone']
+
+    self.close()
+    return {"nome": nome, "cpf": cpf, "email": email, "telefone": telefone}
+
   def mostrar_cliente(self, dados_cliente):
-    print("NOME DO cliente: ", dados_cliente["nome"])
-    print("CPF DO cliente: ", dados_cliente["cpf"])
-    print("EMAIL DO cliente", dados_cliente["email"])
-    print("FONE DO cliente: ", dados_cliente["telefone"])
-    print("\n")
+    string_todos_clientes = ''
+    for cliente in dados_cliente:
+      string_todos_clientes += f"{cliente.nome}, {cliente.cpf}" + "\n"
+    sg.Popup('-------- LISTA DE CLIENTES ----------', string_todos_clientes)
 
-  # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-  def seleciona_cliente(self):
-    cpf = input("CPF do cliente que deseja selecionar: ")
+  def seleciona_cliente(self, dados_cliente):
+    string_todos_clientes = ''
+    for cliente in dados_cliente:
+      string_todos_clientes += f"{cliente.nome}, {cliente.cpf}" + "\n"
+    
+    sg.ChangeLookAndFeel('DarkBrown2')
+    layout = [
+      [sg.Text(string_todos_clientes)],
+      [sg.Text('-------- SELECIONAR CLIENTE ----------', font=("Fixedsys", 25))],
+      [sg.Text('Digite o CPF do cliente que deseja selecionar:', font=("Fixedsys", 15))],
+      [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+      [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+    ]
+    self.__window = sg.Window('Seleciona cliente').Layout(layout)
+
+    button, values = self.open()
+    cpf = values['cpf']
+    self.close()
     return cpf
 
   def mostra_mensagem(self, msg):
-    print(msg)
+    sg.popup("", msg)
 
+  def close(self):
+    self.__window.Close()
 
-  
-  
+  def open(self):
+    button, values = self.__window.Read()
+    return button, values

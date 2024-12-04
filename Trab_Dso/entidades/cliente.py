@@ -10,7 +10,6 @@ class Cliente:
         self.__musicas_cantadas = 0
         self.__prioridade_fila = 0
         
-
     @property
     def nome(self):
         return self.__nome
