@@ -1,89 +1,118 @@
+import PySimpleGUI as sg
 from ..entidades.artista import Artista
+from ..entidades.genero import Genero
 from ..entidades.idioma import Idioma
-from ..entidades.genero import Genero   
 
 class TelaMusica:
+    def __init__(self):
+        sg.theme("DarkBlue")
+
     def mostrar_opcoes(self) -> int:
-        print("\n=== Gerenciamento de Músicas ===")
-        print("1. Registrar Nova Música")
-        print("2. Listar Todas as Músicas")
-        print("3. Listar por Artista")
-        print("4. Listar por Gênero")
-        print("5. Listar por Idioma")
-        print("6. Atualizar Música ")
-        print("0. Retornar")
-        
+        layout = [
+            [sg.Text("=== Gerenciamento de Músicas ===")],
+            [sg.Button("1. Registrar Nova Música", key=1)],
+            [sg.Button("2. Listar Todas as Músicas", key=2)],
+            [sg.Button("3. Listar por Artista", key=3)],
+            [sg.Button("4. Listar por Gênero", key=4)],
+            [sg.Button("5. Listar por Idioma", key=5)],
+            [sg.Button("6. Atualizar Música", key=6)],
+            [sg.Button("0. Retornar", key=0)]
+        ]
+        window = sg.Window("Menu de Músicas", layout)
+
         while True:
-            try:
-                opcao = int(input("Escolha uma opção: "))
-                if 0 <= opcao <= 6:
-                    return opcao
-                print("Por favor, insira uma opção válida (0-6)")
-            except ValueError:
-                print("Por favor, insira um número válido")
+            event, _ = window.read()
+            if event in (sg.WINDOW_CLOSED, 0):
+                window.close()
+                return 0
+            if event in range(1, 7):
+                window.close()
+                return event
 
     def pegar_dados_musica(self) -> dict:
-        print("\n=== Registro de Música ===")
-        titulo = input("Título: ")
-        # nome_artista = input("Nome do Artista: ")
-        # nome_genero = input("Gênero: ")
-        # nome_idioma = input("Idioma: ")
-        
-        #isso não pode ser feito aqui e verificar se não há um objeto desses já criado
-        # artista = Artista(nome_artista)
-        # genero = Genero(nome_genero)
-        # idioma = Idioma(nome_idioma)
-        
-        return {
-            "titulo": titulo,
-            # "artista": artista,
-            # "genero": genero,
-            # "idioma": idioma
-        }
+        layout = [
+            [sg.Text("=== Registro de Música ===")],
+            [sg.Text("Título:", size=(10, 1)), sg.InputText(key="titulo")],
+            [sg.Button("Registrar"), sg.Button("Cancelar")]
+        ]
+        window = sg.Window("Registrar Música", layout)
 
-    #Funções para mostrar as categorias e dar opção de escolhar
+        while True:
+            event, values = window.read()
+            if event in (sg.WINDOW_CLOSED, "Cancelar"):
+                window.close()
+                return {}
+            if event == "Registrar":
+                window.close()
+                return {"titulo": values["titulo"]}
+
+    def escolher_ou_adicionar(self, lista, tipo_categoria):
+        opcoes = [f"{i} - {item.nome}" for i, item in enumerate(lista)]
+        layout = [
+            [sg.Text(f"Lista de {tipo_categoria}s:")],
+            [sg.Listbox(values=opcoes, size=(40, 10), key="opcao")],
+            [sg.Text(f"Novo {tipo_categoria}:", size=(15, 1)), sg.InputText(key="novo")],
+            [sg.Button("Escolher"), sg.Button("Cancelar")]
+        ]
+        window = sg.Window(f"Escolher ou Adicionar {tipo_categoria}", layout)
+
+        while True:
+            event, values = window.read()
+            if event in (sg.WINDOW_CLOSED, "Cancelar"):
+                window.close()
+                return None
+            if event == "Escolher":
+                escolha = values["opcao"]
+                if escolha:
+                    window.close()
+                    return escolha[0].split(" - ")[0]  # Retorna o ID
+                elif values["novo"]:
+                    window.close()
+                    return values["novo"]
+
     def escolher_ou_adicionar_artista(self, lista):
-        cont = 0
-        print("Lista de Artistas:")
-        for categoria in lista:
-            print(f"{categoria.nome} - Id: {cont}")
-            cont+=1
-        escolha = input("Escolha o id de um artista, caso queira adicionar novo digite o novo nome do artista: ")
-        return escolha
+        return self.escolher_ou_adicionar(lista, "Artista")
+
     def escolher_ou_adicionar_genero(self, lista):
-        cont=0
-        print("Lista de Generos")
-        for categoria in lista:
-            print(f"{categoria.nome} - Id: {cont}")
-            cont+=1
-        escolha = input("Escolha o id de um genero, caso queira adicionar novo digite o novo nome do genero: ")
-        return escolha
-    
+        return self.escolher_ou_adicionar(lista, "Gênero")
+
     def escolher_ou_adicionar_idioma(self, lista):
-        cont=0
-        print("Lista de idiomas")
-        for categoria in lista:
-            print(f"{categoria.nome} - Id: {cont}")
-            cont+=1
-        escolha = input("Escolha o id de um idioma, caso queira adicionar novo digite o novo nome do idioma: ")
-        return escolha
+        return self.escolher_ou_adicionar(lista, "Idioma")
 
     def recebe_id_para_listar(self):
-        id = int(input("Digite o id desejado: "))
-        return(id)
+        layout = [
+            [sg.Text("Digite o ID desejado:"), sg.InputText(key="id")],
+            [sg.Button("Confirmar"), sg.Button("Cancelar")]
+        ]
+        window = sg.Window("Selecionar ID", layout)
+
+        while True:
+            event, values = window.read()
+            if event in (sg.WINDOW_CLOSED, "Cancelar"):
+                window.close()
+                return None
+            if event == "Confirmar":
+                try:
+                    id_escolhido = int(values["id"])
+                    window.close()
+                    return id_escolhido
+                except ValueError:
+                    sg.popup("Por favor, insira um número válido")
 
     def mostrar_musica(self, musica):
-        print(f"{musica.titulo} - {musica.genero} - {musica.artista} - {musica.idioma}")
-
-
-    def mostrar_musica(self, musica):
-        print("\n=== Detalhes da Música ===")
-        print(f"Título: {musica.titulo}")
-        print(f"Código: {musica.codigo}")
-        print(f"Artista: {musica.artista.nome}")
-        print(f"Gênero: {musica.genero.nome}")
-        print(f"Idioma: {musica.idioma.nome}")
-        print(f"Vezes tocadas: {musica.contador}")
+        layout = [
+            [sg.Text("=== Detalhes da Música ===")],
+            [sg.Text(f"Título: {musica.titulo}")],
+            [sg.Text(f"Código: {musica.codigo}")],
+            [sg.Text(f"Artista: {musica.artista.nome}")],
+            [sg.Text(f"Gênero: {musica.genero.nome}")],
+            [sg.Text(f"Idioma: {musica.idioma.nome}")],
+            [sg.Text(f"Vezes tocadas: {musica.contador}")],
+            [sg.Button("Fechar")]
+        ]
+        window = sg.Window("Detalhes da Música", layout)
+        window.read()
+        window.close()
 
     def mostrar_mensagem(self, mensagem: str):
-        print(f"\n{mensagem}")
+        sg.popup(mensagem)
