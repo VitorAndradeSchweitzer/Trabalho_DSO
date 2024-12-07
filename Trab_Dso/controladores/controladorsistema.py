@@ -1,5 +1,7 @@
+import sys
 from ..controladores import controladorCliente, controladorFila, controladorMesa, controladorMusica, controladorBibliotecaDeMusica 
 from ..telas import telasistema
+
 class ControladorSistema:
     def __init__(self):
         self.__bibliotecademusicas = controladorBibliotecaDeMusica.ControladorBibliotecaDeMusica(self)
@@ -8,6 +10,7 @@ class ControladorSistema:
         self.__fila_controlador = controladorFila.ControladorFila(self)
         self.__mesa_controlador = controladorMesa.ControladorMesa(self)
         self.__tela = telasistema.SystemScreen()
+
 
     @property
     def bibliotecademusicas_controlador(self):
@@ -23,14 +26,14 @@ class ControladorSistema:
             3: self.__fila_controlador.abrir_tela,
             4: self.__mesa_controlador.abrir_tela,
             5: self.__bibliotecademusicas.abrir_tela,
-            0: self.fechar_sistema
+            0: self.close
         }
 
         while True:
             try:
                 opcao = self.__tela.tela_opcoes()
                 if opcao == 0:
-                    self.fechar_sistema()
+                    self.close()
                     break
                 if opcao in opcoes:
                     opcoes[opcao]()
@@ -48,6 +51,8 @@ class ControladorSistema:
         return self.__musica_controlador
 
 
-    def fechar_sistema(self):
+    def close(self):
         self.__tela.mostra_menssagem("Fechando ...")
+        sys.exit() 
+
     

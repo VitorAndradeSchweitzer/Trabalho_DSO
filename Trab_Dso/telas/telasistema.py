@@ -3,49 +3,61 @@ import PySimpleGUI as sg
 class SystemScreen:
     def __init__(self):
         self.__window = None
-        self.init_components()
+        
 
 # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
 # precisa chamar self.init_components() aqui para o caso de chamar essa janela uma 2a vez. Não é possível reusar layouts de janelas depois de fechadas.
+    # def tela_opcoes(self):
+    #     self.init_components()
+    #     button, values = self.__window.Read()
+    #     opcao = 0
+    #     if values['1']:
+    #         opcao = 1
+    #     if values['2']:
+    #         opcao = 2
+    #     if values['3']:
+    #         opcao = 3
+    #     if values['4']:
+    #         opcao = 4
+    #     if values['5']:
+    #         opcao = 5 
+    #     # cobre os casos de voltar, não clicar em nada e fechar janela, ou clicar cancelar
+    #     if values['0'] or button in (None,'Cancelar'):
+    #         opcao = 0
+    #     self.close()
+    #     return opcao
+
+    # def close(self):
+    #     self.__window.close()
+
     def tela_opcoes(self):
-        self.init_components()
-        button, values = self.__window.Read()
-        opcao = 0
-        if values['1']:
-            opcao = 1
-        if values['2']:
-            opcao = 2
-        if values['3']:
-            opcao = 3
-        if values['4']:
-            opcao = 4
-        if values['5']:
-            opcao = 5 
-        # cobre os casos de voltar, não clicar em nada e fechar janela, ou clicar cancelar
-        if values['0'] or button in (None,'Cancelar'):
-            opcao = 0
-        self.close()
-        return opcao
-
-    def close(self):
-        self.__window.Close()
-
-    def init_components(self):
         #sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkBrown2')
         layout = [
-            [sg.Text('Bem vindo ao sistema de empréstimo de livros!', font=("Fixedsys",25))],
+            [sg.Text('Bem vindo ao sistema de Karaoke!', font=("Fixedsys",25))],
             [sg.Text('Escolha sua opção', font=("Fixedsys",15))],
-            [sg.Radio('Controlador Cliente',"RD1", key='1')],
-            [sg.Radio('Controlador Musica',"RD1", key='2')],
-            [sg.Radio('Controlador Fila',"RD1", key='3')],
-            [sg.Radio('Controlador Mesa',"RD1", key='4')],
-            [sg.Radio('Controlador Fila',"RD1", key='5')],
-            [sg.Radio('Relatórios Músicas',"RD1", key='0')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Controlador Cliente', key=1)],
+            [sg.Button('Controlador Musica', key=2)],
+            [sg.Button('Controlador Fila', key=3)],
+            [sg.Button('Controlador Mesa', key=4)],
+            [sg.Button('Controlador Fila', key=5)],
+            [sg.Button('Relatórios Músicas', key=6)],
+            [sg.Text('')],
+            [sg.Button('Cancelar', key=0)]
         ]
-        self.__window = sg.Window('Sistema Karaoke').Layout(layout)
+        self.__window = sg.Window('Sistema Karaoke', layout)
 
+        while True:
+            event, _ = self.__window.read()
+            if event in (sg.WINDOW_CLOSED, 0):
+                self.__window.close()
+                return 0
+
+            if event in range(1, 7):
+                self.__window.close()
+                return event
+        
+        
 
 
 # class SystemScreen:
@@ -68,4 +80,4 @@ class SystemScreen:
 #                 print("Insira um numero por favor")
 
     def mostra_menssagem(self, menssagem):
-        print(menssagem)
+        sg.popup(menssagem)

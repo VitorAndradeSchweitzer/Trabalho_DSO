@@ -5,18 +5,18 @@ from ..entidades.idioma import Idioma
 
 class TelaMusica:
     def __init__(self):
-        sg.theme("DarkBlue")
+        sg.ChangeLookAndFeel('DarkBrown2')
 
     def mostrar_opcoes(self) -> int:
         layout = [
             [sg.Text("=== Gerenciamento de Músicas ===")],
-            [sg.Button("1. Registrar Nova Música", key=1)],
-            [sg.Button("2. Listar Todas as Músicas", key=2)],
-            [sg.Button("3. Listar por Artista", key=3)],
-            [sg.Button("4. Listar por Gênero", key=4)],
-            [sg.Button("5. Listar por Idioma", key=5)],
-            [sg.Button("6. Atualizar Música", key=6)],
-            [sg.Button("0. Retornar", key=0)]
+            [sg.Button("Registrar Nova Música", key=1)],
+            [sg.Button("Listar Todas as Músicas", key=2)],
+            [sg.Button("Listar por Artista", key=3)],
+            [sg.Button("Listar por Gênero", key=4)],
+            [sg.Button("Listar por Idioma", key=5)],
+            [sg.Button("Atualizar Música", key=6)],
+            [sg.Button("Retornar", key=0)]
         ]
         window = sg.Window("Menu de Músicas", layout)
 
