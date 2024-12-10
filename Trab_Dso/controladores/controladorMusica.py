@@ -5,6 +5,7 @@ from ..entidades.artista import Artista
 from ..entidades.genero import Genero
 from ..entidades.idioma import Idioma
 
+
 class ControladorMusica:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema

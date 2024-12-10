@@ -2,6 +2,8 @@ from ..entidades.cliente import Cliente
 from ..telas.telacliente import TelaCliente
 import re
 from ..DAOs.cliente_DAO import ClienteDAO
+
+
 class ControladorCliente():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
