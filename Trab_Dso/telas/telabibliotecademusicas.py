@@ -1,36 +1,60 @@
+import PySimpleGUI as sg
+
 class TelaBibliotecaDeMusica:
+    def __init__(self):
+        sg.theme("DarkBrown2") 
+
     def mostrar_mensagem(self, mensagem: str):
-        print(f"\n{mensagem}")
+        sg.popup(mensagem, title="Mensagem")
 
     def mostrar_lista_musicas(self, lista_musicas: list):
-        print("\n=== Biblioteca de Músicas ===")
         if not lista_musicas:
-            print("Nenhuma música disponível")
+            self.mostrar_mensagem("Nenhuma música disponível.")
             return
         
+        texto_musicas = "\n=== Biblioteca de Músicas ===\n\n"
         for musica in lista_musicas:
-            print(f"\nTítulo: {musica.titulo}")
-            print(f"Artista: {musica.artista}")
-            print(f"Gênero: {musica.genero}")
-            print(f"Idioma: {musica.idioma}")
-            print(f"Código: {musica.codigo}")
-            print(f"Vezes Tocada: {musica.numero_de_vezes_tocada}")
+            texto_musicas += (
+                f"Título: {musica.titulo}\n"
+                f"Artista: {musica.artista}\n"
+                f"Gênero: {musica.genero}\n"
+                f"Idioma: {musica.idioma}\n"
+                f"Código: {musica.codigo}\n"
+                f"Vezes Tocada: {musica.contador}\n\n"
+            )
+
+
+        layout = [[sg.Text("Biblioteca de Músicas", font=("Fixedsys", 25))],
+                  [sg.Multiline(default_text=texto_musicas, size=(60, 20), disabled=True)],
+                  [sg.Button("Fechar")]]
+        
+        janela = sg.Window("Biblioteca de Músicas", layout)
+        while True:
+            evento, _ = janela.read()
+            if evento == sg.WIN_CLOSED or evento == "Fechar":
+                break
+        janela.close()
 
     def mostrar_opcoes(self) -> int:
-        print("\n=== Relatório de Músicas ===")
-        print("1. Relatório de Artista mais cantado")
-        print("2. Relatório de Gênero mais cantado")
-        print("3. Relatório de Idioma mais cantado")
-        print("0. Retornar")
+        """
+        Exibe o menu de opções e retorna a opção selecionada.
+        """
+        layout = [
+            [sg.Text("=== Relatório de Músicas ===", font=("Fixedsys", 25))],
+            [sg.Button("1. Relatório de Artista mais cantado", key=1)],
+            [sg.Button("2. Relatório de Gênero mais cantado", key=2)],
+            [sg.Button("3. Relatório de Idioma mais cantado", key=3)],
+            [sg.Button("0. Retornar", key=0)]
+        ]
         
-        while True:
-            try:
-                opcao = int(input("Escolha uma opção: "))
-                if 0 <= opcao <= 3:
-                    return opcao
-                print("Por favor, insira uma opção válida (0-6)")
-            except ValueError:
-                print("Por favor, insira um número válido")
+        janela = sg.Window("Opções de Relatórios", layout)
 
-    def mostrar_mensagem(self, mensagem: str):
-        print(f"\n{mensagem}")
+        while True:
+            evento, _ = janela.read()
+            if evento in (0, 1, 2, 3):  
+                janela.close()
+                return evento
+            elif evento == sg.WIN_CLOSED:
+                janela.close()
+                return 0  
+
