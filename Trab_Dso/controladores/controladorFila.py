@@ -1,11 +1,11 @@
 from ..entidades.filakaraoke import Fila_Karaoke
-from ..telas.telafila_karaoke import Telafila
+from ..telas.telafila_karaoke import TelaFila
 
 class ControladorFila:
     #controlador_sistema
     def __init__(self,  controlador_sistema ):
         self.__controlador_sistema = controlador_sistema
-        self.__tela = Telafila()
+        self.__tela = TelaFila()
         self.__fila = Fila_Karaoke()
 
     def abrir_tela(self):

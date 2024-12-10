@@ -40,8 +40,7 @@ class SystemScreen:
             [sg.Button('Controlador Musica', key=2)],
             [sg.Button('Controlador Fila', key=3)],
             [sg.Button('Controlador Mesa', key=4)],
-            [sg.Button('Controlador Fila', key=5)],
-            [sg.Button('Relatórios Músicas', key=6)],
+            [sg.Button('Relatórios Músicas', key=5)],
             [sg.Text('')],
             [sg.Button('Cancelar', key=0)]
         ]
@@ -53,7 +52,7 @@ class SystemScreen:
                 self.__window.close()
                 return 0
 
-            if event in range(1, 7):
+            if event in range(1, 6):
                 self.__window.close()
                 return event
         

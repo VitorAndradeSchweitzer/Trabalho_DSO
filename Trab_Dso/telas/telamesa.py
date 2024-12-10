@@ -54,13 +54,38 @@ class TelaMesa():
     def mensagem_de_exclusão(self, numero):
         sg.Popup(f"---Mesa {numero} excluida")
          
-    def mostrar_mesa(self,dados_mesa):
-        sg.Popup(f"Mesa Numero {dados_mesa['numero']}, Clientes na Mesa: {dados_mesa['clientes']}")
+    def mostrar_mesa(self, dados_mesa):
+        """Exibe os dados de uma mesa específica."""
+        layout = [
+            [sg.Text(f"Mesa Número: {dados_mesa['numero']}", font=("Fixedsys", 14))],
+            [sg.Text(f"Clientes na Mesa: {', '.join(dados_mesa['clientes']) if dados_mesa['clientes'] else 'Nenhum'}")],
+            [sg.Button("OK")]
+        ]
+        window = sg.Window("Detalhes da Mesa", layout)
+        window.read()
+        window.close()
 
     def seleciona_mesa(self):
-        numero = input("Numero da mesa que deseja selecionar: ")
-        return numero
-    
+            """Permite ao usuário selecionar uma mesa pelo número."""
+            layout = [
+                [sg.Text("Digite o número da mesa:", font=("Fixedsys", 12))],
+                [sg.InputText(key='numero')],
+                [sg.Button("Confirmar"), sg.Button("Cancelar")]
+            ]
+
+            window = sg.Window("Selecionar Mesa", layout)
+            while True:
+                event, values = window.read()
+                if event in (sg.WINDOW_CLOSED, "Cancelar"):
+                    window.close()
+                    return None  # Retorna None se cancelar
+                if values['numero'].isdigit():
+                    numero = int(values['numero'])
+                    window.close()
+                    return numero
+                else:
+                    sg.popup_error("Por favor, insira um número válido.")
+
     def mostra_mensagem(self, msg):
-        print(msg)
-         
+        """Exibe mensagens gerais na interface gráfica."""
+        sg.popup_ok(msg, title="Mensagem")
