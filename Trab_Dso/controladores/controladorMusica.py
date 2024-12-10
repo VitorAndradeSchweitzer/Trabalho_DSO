@@ -4,12 +4,14 @@ from ..entidades.musica import Musica
 from ..entidades.artista import Artista
 from ..entidades.genero import Genero
 from ..entidades.idioma import Idioma
+from ..DAOs.musica_DAO import MusicaDAO
 
 
 class ControladorMusica:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaMusica()
+        self.__musica_DAO = MusicaDAO()
         self.__controlador_biblioteca = self.__controlador_sistema.bibliotecademusicas_controlador
 
     @property
@@ -115,6 +117,8 @@ class ControladorMusica:
                 self.__tela.mostrar_mensagem("Música já existe")
         except Exception as e:
             self.__tela.mostrar_mensagem(f"Erro registrando música: {str(e)}")
+        
+        self.__musica_DAO.add(nova_musica)
 
     def buscar_musica(self, codigo: str) -> Musica:
         return self.__controlador_biblioteca.buscar_musica(codigo)
