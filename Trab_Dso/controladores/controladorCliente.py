@@ -80,6 +80,7 @@ class ControladorCliente():
 
 
     def lista_cliente(self):
+            print(self.__clientes_DAO.get_all())
             self.__tela.mostrar_cliente(self.__clientes_DAO.get_all())
 
     def abrir_tela(self):
