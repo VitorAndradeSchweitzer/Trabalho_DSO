@@ -47,10 +47,8 @@ class ControladorMusica:
 
         try:
             codigo = self.__controlador_biblioteca.retornar_ultimo_codigo()
-            print("entrou até aqui 2")
 
             dados_musica = self.__tela.pegar_dados_musica() #ID É O SISTEMA QUE DEFINE
-            print("entrou até aqui 3")
             
             #FAZER FUNÇÃO INTERMEDIARIA PAR MOSTRAR CATEGORIAS JÁ CADASTRADAS E DAR OPCAO DE CRiAR NOVO
             opcoes_de_artista = self.__controlador_biblioteca.lista_de_artista()
