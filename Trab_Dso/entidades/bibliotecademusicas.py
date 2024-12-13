@@ -99,7 +99,6 @@ class BibliotecaDeMusicas:
             if not self.__musicas.get(musica.codigo):
                 self.__musicas.add(musica)
                           
-            print("aqui")  
             if  not self.__idiomas.get(musica.idioma.nome):
    
                 self.__idiomas.add(musica.idioma)

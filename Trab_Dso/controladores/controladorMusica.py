@@ -55,10 +55,8 @@ class ControladorMusica:
 
         try:
             codigo = self.__controlador_biblioteca.retornar_ultimo_codigo()
-            print("entrou até aqui 2")
 
             dados_musica = self.__tela.pegar_dados_musica() #ID É O SISTEMA QUE DEFINE
-            print("entrou até aqui 3")
             
             #FAZER FUNÇÃO INTERMEDIARIA PAR MOSTRAR CATEGORIAS JÁ CADASTRADAS E DAR OPCAO DE CRiAR NOVO
             opcoes_de_artista = self.__controlador_biblioteca.lista_de_artista()
@@ -67,7 +65,6 @@ class ControladorMusica:
                 artista = self.__controlador_biblioteca.retornar_artista_por_id(int(opcoes))
                 dados_musica["artista"] = artista
             else:
-                print(f"opcoes é {opcoes}")
                 achado = False
           
                 for artista in self.__controlador_biblioteca.bibliotecademusica.artistas.get_all():
@@ -76,7 +73,6 @@ class ControladorMusica:
                         novo_artista = artista
                         achado = True
                 if achado == False:
-                        print("achado entrou aqui")
                         novo_artista = Artista(opcoes)
                 dados_musica["artista"] = novo_artista
             

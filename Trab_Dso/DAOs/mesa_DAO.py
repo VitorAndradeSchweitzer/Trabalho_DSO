@@ -12,9 +12,7 @@ class MesaDAO(DAO):
             super().add(mesa.numero, mesa)
 
     def update(self, mesa: Mesa):
-        print("entrou no update de mesas")
         if((mesa is not None) and isinstance(mesa, Mesa) and isinstance(mesa.numero, int)):
-            print("excluiu")
             super().update(mesa.numero, mesa)
 
     def get(self, key:int):

@@ -41,7 +41,6 @@ class ControladorSistema:
                 else:
                     self.__tela.mostra_menssagem("Opção invalida")
             except ValueError:
-                print(f"{opcao}")
                 self.__tela.mostra_menssagem("Por favor coloque um valor valido")
 
     @property
