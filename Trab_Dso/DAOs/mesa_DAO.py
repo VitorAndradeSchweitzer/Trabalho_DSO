@@ -13,7 +13,6 @@ class MesaDAO(DAO):
 
     def update(self, mesa: Mesa):
         if((mesa is not None) and isinstance(mesa, Mesa) and isinstance(mesa.numero, int)):
-            print("excluiu")
             super().update(mesa.numero, mesa)
 
     def get(self, key:int):
