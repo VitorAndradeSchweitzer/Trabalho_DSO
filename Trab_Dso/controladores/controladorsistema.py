@@ -30,7 +30,6 @@ class ControladorSistema:
         }
 
         while True:
-
             try:
                 opcao = self.__tela.tela_opcoes()
                 if opcao == 0:

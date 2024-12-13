@@ -29,20 +29,6 @@ class TelaFila:
                 return event
 
 
-
-# class Telafila():
-#     def tela_opcoes(self):
-#         print("-------- FILA KARAOKE ----------")
-#         print("Escolha a opcao")
-#         print("1 - Mostrar Fila")
-#         print("2 - Passar a vez pro proximo")
-#         print("3 - Adicionar Pedido")
-#         print("4 - Remover Pedido")
-#         print("0 - Retornar")
-
-#         resposta = int(input("Escolha o numero da opcao desejada: "))
-#         return resposta
-
     def mostrar_fila(self, posicao, cliente, musica):
         """Mostra as informações de uma posição na fila."""
         sg.popup_ok(

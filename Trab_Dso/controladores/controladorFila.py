@@ -23,17 +23,17 @@ class ControladorFila:
                 if opcao in opcoes:
                     opcoes[opcao]()
                 else:
-                    self.__tela.mostra_menssagem("Opcao Invalida")
+                    self.__tela.mostra_mensagem("Opção Invalida")
 
             except Exception as e:
-                self.__tela.mostra_menssagem(f"An error occurred: {str(e)}")
+                self.__tela.mostra_mensagem(f"An error occurred: {str(e)}")
 
     def inicializa_tela(self):
         self.abrir_tela()
         
     def mostrar_fila(self):
         if not self.__fila.fila_karaoke:
-            self.__tela.mostra_menssagem("fila está vazia")
+            self.__tela.mostra_mensagem("A fila está vazia")
             return
             
         for i, (cliente, musica) in enumerate(self.__fila.fila_karaoke):
@@ -41,13 +41,13 @@ class ControladorFila:
 
     def proximo_cantar(self):
         proximo = self.__fila.proximo_cantar()
-        print("aqui a função proximo a cantar foi chamada")
+        
         if proximo:
-            print("entrou no proximo")
             cliente, musica = proximo
+            musica.incrementar_contador()
             self.__tela.proximo_cantar(cliente, musica)
         else:
-            self.__tela.mostra_menssagem("fila está vazia")
+            self.__tela.mostra_mensagem("fila está vazia")
 
     def adicionar_pedido(self):
         try:
@@ -63,11 +63,11 @@ class ControladorFila:
             
             if cliente and musica:
                 self.__fila.adicionar_na_fila(cliente, musica)
-                self.__tela.mostra_menssagem("Pedido adicionado")
+                self.__tela.mostra_mensagem("Pedido adicionado")
             else:
-                self.__tela.mostra_menssagem("Cliente ou Música não encontrados")
+                self.__tela.mostra_mensagem("Cliente ou Música não encontrados")
         except Exception as e:
-            self.__tela.mostra_menssagem(f"Error adding request: {str(e)}")
+            self.__tela.mostra_mensagem(f"Error adding request: {str(e)}")
 
     def remover_pedido(self):
         try:
@@ -77,12 +77,12 @@ class ControladorFila:
             if self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cliente) is not None:
                     cliente = self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cliente)
                     self.__fila.remover_fila(cliente)
-                    self.__tela.mostra_menssagem("Pedido removido")
+                    self.__tela.mostra_mensagem("Pedido removido")
             else:
-                    self.__tela.mostra_menssagem("Cliente não está na fila")
+                    self.__tela.mostra_mensagem("Cliente não está na fila")
 
         except Exception as e:
-            self.__tela.mostra_menssagem(f"Error removing request: {str(e)}")
+            self.__tela.mostra_mensagem(f"Error removing request: {str(e)}")
 
     def sair(self):
         self.__controlador_sistema.abrir_tela()

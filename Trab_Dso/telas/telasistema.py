@@ -4,7 +4,6 @@ class SystemScreen:
     def __init__(self):
         self.__window = None
         
-
 # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
 # precisa chamar self.init_components() aqui para o caso de chamar essa janela uma 2a vez. Não é possível reusar layouts de janelas depois de fechadas.
     # def tela_opcoes(self):
@@ -53,10 +52,7 @@ class SystemScreen:
 
             if event in range(1, 6):
                 self.__window.close()
-                return event
-        
-        
-
+                return event 
 
 # class SystemScreen:
 #     def mostrar_opcoes(self) -> int:
