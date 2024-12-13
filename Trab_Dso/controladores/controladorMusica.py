@@ -15,6 +15,14 @@ class ControladorMusica:
         self.__controlador_biblioteca = self.__controlador_sistema.bibliotecademusicas_controlador
 
     @property
+    def musica_DAO(self):
+        return self.__musica_DAO
+    @property
+    def musica_DAO(self):
+        return self.__musica_DAO
+
+
+    @property
     def tela(self):
         return self.__tela
     @property

@@ -45,6 +45,12 @@ class ControladorFila:
         if proximo:
             cliente, musica = proximo
             musica.incrementar_contador()
+      
+            self.__controlador_sistema.musica_controlador.musica_DAO.update(musica)
+            self.__controlador_sistema.musica_controlador.controlador_biblioteca.bibliotecademusica.artistas.update(musica.artista)
+            self.__controlador_sistema.musica_controlador.controlador_biblioteca.bibliotecademusica.idiomas.update(musica.idioma)
+            self.__controlador_sistema.musica_controlador.controlador_biblioteca.bibliotecademusica.generos.update(musica.genero)
+                    
             self.__tela.proximo_cantar(cliente, musica)
         else:
             self.__tela.mostra_mensagem("fila está vazia")
@@ -76,7 +82,14 @@ class ControladorFila:
             
             if self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cliente) is not None:
                     cliente = self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cliente)
-                    self.__fila.remover_fila(cliente)
+                    resultado = self.__fila.remover_fila(cliente)
+                    resultado.incrementar_contador()
+                    self.__controlador_sistema.bibliotecademusicas.bibliotecademusica.musicas.update(resultado)
+                    self.__controlador_sistema.bibliotecademusicas.bibliotecademusica.artistas.update(resultado.artista)
+                    self.__controlador_sistema.bibliotecademusicas.bibliotecademusica.idiomas.update(resultado.idioma)
+                    self.__controlador_sistema.bibliotecademusicas.bibliotecademusica.generos.update(resultado.genero)
+                    
+                    
                     self.__tela.mostra_mensagem("Pedido removido")
             else:
                     self.__tela.mostra_mensagem("Cliente não está na fila")

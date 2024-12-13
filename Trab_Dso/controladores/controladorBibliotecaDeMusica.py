@@ -91,6 +91,9 @@ class ControladorBibliotecaDeMusica:
 
     def relatorio_generos(self):
         generos_ordenados = sorted(self.lista_de_genero(), key=lambda genero: genero.contador, reverse=True)
+        for genero in generos_ordenados:
+            print(f"{genero} {genero.contador}")
+        
         self.__tela.mostrar_relatorio_generos(generos_ordenados)
 
     def relatorio_idiomas(self):

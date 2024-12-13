@@ -52,7 +52,9 @@ class Fila_Karaoke:
         for pedidos in self.__fila_karaoke:
             if pedidos[0] == cliente:
                 self.__fila_karaoke.remove(pedidos)
-                pedidos[1].incrementar_contador()
+                return pedidos[1] #retorna a musica
+            
+             
 
 
     def recomecar_prioridade(self):
