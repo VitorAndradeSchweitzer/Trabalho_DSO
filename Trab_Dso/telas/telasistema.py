@@ -28,7 +28,6 @@ class SystemScreen:
 
     # def close(self):
     #     self.__window.close()
-
     def tela_opcoes(self):
         #sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkBrown2')

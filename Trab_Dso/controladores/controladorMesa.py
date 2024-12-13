@@ -74,9 +74,14 @@ class ControladorMesa():
         self.__mesas_DAO.update(mesa)
 
     def desalocar_cliente(self):
+        clientes = ""
         for mesa in self.__mesas_DAO.get_all():
+           
             if len(mesa.clientes) > 0:
-                mesa = {"numero": mesa.numero, "clientes":mesa.clientes}
+                for cliente in mesa.clientes:
+                    clientes += cliente.nome
+                    clientes += ' ,'
+                mesa = {"numero": mesa.numero, "clientes":clientes}
                 self.__tela.mostrar_mesa(mesa)
         numero_mesa = self.__tela.seleciona_mesa()
         mesa = self.buscar_mesa_por_numero(numero_mesa)
@@ -87,11 +92,15 @@ class ControladorMesa():
 
         cpf = self.__controlador_sistema.cliente_controlador.tela.seleciona_cliente(self.__controlador_sistema.cliente_controlador.clientes_DAO.get_all())
     
+ 
         cliente = self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cpf)
-        
-        mesa.clientes.remove(cliente)
+    
+        for alocado in mesa.clientes:
+            if alocado.cpf == cliente.cpf:
+                mesa.clientes.remove(alocado)
+  
         self.__mesas_DAO.update(mesa)
-     
+           
 
 
     def sair(self):
