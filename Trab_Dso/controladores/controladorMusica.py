@@ -231,7 +231,7 @@ class ControladorMusica:
             musica.idioma = dados_musica["idioma"]
             self.__controlador_biblioteca.bibliotecademusica.musicas.update(musica)
 
-            self.__tela.mostrar_mensagem("Tudo certo, música atualziada!")
+            self.__tela.mostrar_mensagem("Tudo certo, música atualizada!")
         else:
             self.__tela.mostrar_mensagem("Nenhuma musica possui esse id")
 

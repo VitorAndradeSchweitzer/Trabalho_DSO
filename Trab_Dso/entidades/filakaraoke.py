@@ -23,7 +23,6 @@ class Fila_Karaoke:
             inserido = True
             self.__fila_karaoke.append(novo_pedido)
         else:
-            print(f"tamanho da fila é {len(self.__fila_karaoke)}")
             for i, pedido in enumerate(self.__fila_karaoke):
                 if pedido[0].prioridade_fila > cliente.prioridade_fila:
             
@@ -39,7 +38,7 @@ class Fila_Karaoke:
     def proximo_cantar(self):
         if self.__fila_karaoke:
             cantor = self.__fila_karaoke[0]
-            cantor[1].incrementar_contador()
+
             cantor[1].ja_cantada = True
             self.__fila_karaoke.pop(0)
             return cantor

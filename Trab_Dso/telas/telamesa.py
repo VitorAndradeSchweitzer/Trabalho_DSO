@@ -27,26 +27,7 @@ class TelaMesa():
                 return 0
             if event in range(1, 6):
                 window.close()
-                return event        
-
-
-
-        # print("-------- MESA ----------")
-        # print("Escolha a opcao")
-        # print("1 - Incluir mesa")
-        # print("2 - Excluir mesa")
-        # print("3 - Listar mesa")
-        # print("4 - Alocar Cliente")
-        # print("5 - Desalocar Cliente")
-        # print("0 - Retornar")
-
-
-        # opcao = int(input("Escolha a opcao: "))
-        # while opcao > 5 or opcao < 0:
-        #       opcao = int(input("Escolha errada, selecione um valor válido: "))
-      
-        # return opcao
-    
+                return event            
 
     def mensagem_de_criação(self, numero):
         sg.Popup(f"-----Mesa Numero {numero} criada!")

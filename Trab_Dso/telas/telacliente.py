@@ -27,39 +27,6 @@ class TelaCliente():
               window.close()
               return event
 
-
-  # def tela_opcoes(self):
-  #   self.init_opcoes()
-  #   button, values = self.open()
-  #   if values['1']:
-  #     opcao = 1
-  #   if values['2']:
-  #     opcao = 2
-  #   if values['3']:
-  #     opcao = 3
-  #   if values['4']:
-  #     opcao = 4
-  #   # cobre os casos de Retornar, fechar janela, ou clicar cancelar
-  #   #Isso faz com que retornemos a tela do sistema caso qualquer uma dessas coisas aconteca
-  #   if values['0'] or button in (None, 'Cancelar'):
-  #     opcao = 0
-  #   self.close()
-  #   return opcao
-
-  # def init_opcoes(self):
-  #   sg.ChangeLookAndFeel('DarkBrown2')
-  #   layout = [
-  #     [sg.Text('-------- CLIENTES ----------', font=("Fixedsys", 25))],
-  #     [sg.Text('Escolha a opção', font=("Fixedsys", 15))],
-  #     [sg.Radio('Incluir Cliente', "RD1", key='1')],
-  #     [sg.Radio('Alterar Cliente', "RD1", key='2')],
-  #     [sg.Radio('Listar Cliente', "RD1", key='3')],
-  #     [sg.Radio('Excluir Cliente', "RD1", key='4')],
-  #     [sg.Radio('Retornar', "RD1", key='0')],
-  #     [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
-  #   ]
-  #   self.__window = sg.Window('Sistema Karaoke').Layout(layout)
-
   def receber_dados(self):
 
     sg.ChangeLookAndFeel('DarkBrown2')
