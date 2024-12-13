@@ -1,6 +1,7 @@
 from .filakaraoke import Fila_Karaoke 
 from .musica import Musica
 from .bibliotecademusicas import BibliotecaDeMusicas
+
 class Cliente:
     def __init__(self, nome, cpf, email, telefone):
         self.__nome = nome

@@ -23,3 +23,4 @@ class ClienteDAO(DAO):
     def remove(self, key:str):
         if(isinstance(key, str)):
             return super().remove(key)
+
