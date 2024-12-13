@@ -41,13 +41,15 @@ class ControladorMusica:
                 self.__tela.mostrar_mensagem(f"Um erro ocorreu: {str(e)}")
 
     def registrar_musica(self):
-
-        try:
+            print("entrou até aqui 1")
+        # try:
             codigo = self.__controlador_biblioteca.retornar_ultimo_codigo()
+            print("entrou até aqui 2")
+
             dados_musica = self.__tela.pegar_dados_musica() #ID É O SISTEMA QUE DEFINE
+            print("entrou até aqui 3")
             
             #FAZER FUNÇÃO INTERMEDIARIA PAR MOSTRAR CATEGORIAS JÁ CADASTRADAS E DAR OPCAO DE CRiAR NOVO
-            
             opcoes_de_artista = self.__controlador_biblioteca.lista_de_artista()
             opcoes = self.__tela.escolher_ou_adicionar_artista(opcoes_de_artista)
             if opcoes.isdigit():
@@ -56,9 +58,9 @@ class ControladorMusica:
             else:
                 print(f"opcoes é {opcoes}")
                 achado = False
-                print("novo artista é false")
-                for artista in self.__controlador_biblioteca.bibliotecademusica.artistas:
-                    print("entrou no loop")
+          
+                for artista in self.__controlador_biblioteca.bibliotecademusica.artistas.get_all():
+               
                     if artista.nome == opcoes:
                         novo_artista = artista
                         achado = True
@@ -76,7 +78,7 @@ class ControladorMusica:
             else:
                 achado = False
 
-                for genero in self.__controlador_biblioteca.bibliotecademusica.generos:
+                for genero in self.__controlador_biblioteca.bibliotecademusica.generos.get_all():
                     if genero.nome == opcoes:
                         novo_genero = genero
                         achado = True
@@ -92,7 +94,7 @@ class ControladorMusica:
                 dados_musica["idioma"] = idioma
             else:
                 achado = False
-                for idioma in self.__controlador_biblioteca.bibliotecademusica.idiomas:
+                for idioma in self.__controlador_biblioteca.bibliotecademusica.idiomas.get_all():
                     if idioma.nome == opcoes:
                         novo_idioma = idioma
                         achado = True
@@ -112,8 +114,8 @@ class ControladorMusica:
                 self.__tela.mostrar_mensagem("Música registrada com sucesso")
             else:
                 self.__tela.mostrar_mensagem("Música já existe")
-        except Exception as e:
-            self.__tela.mostrar_mensagem(f"Erro registrando música: {str(e)}")
+        # except Exception as e:
+        #     self.__tela.mostrar_mensagem(f"Erro registrando música: {str(e)}")
 
     def buscar_musica(self, codigo: str) -> Musica:
         return self.__controlador_biblioteca.buscar_musica(codigo)
@@ -145,8 +147,10 @@ class ControladorMusica:
             cont +=1
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
+        resultados = list(resultados)
+
         for musica in lista_musicas:
-            if musica.artista == resultados[id_escolhido]:
+            if musica.artista.nome == resultados[id_escolhido].nome:
                 self.__tela.mostrar_musica(musica)
             
 
@@ -159,8 +163,10 @@ class ControladorMusica:
             cont += 1
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
+        resultados = list(resultados)
+
         for musica in lista_musicas:
-            if musica.genero == resultados[id_escolhido]:
+            if musica.genero.nome == resultados[id_escolhido].nome:
                 self.__tela.mostrar_musica(musica)
 
     def listar_idiomas(self):
@@ -171,8 +177,13 @@ class ControladorMusica:
             cont += 1
         id_escolhido = self.__tela.recebe_id_para_listar()
         lista_musicas = self.__controlador_biblioteca.lista_musica()
+        resultados = list(resultados)
+
+        
         for musica in lista_musicas:
-            if musica.idioma == resultados[id_escolhido]:
+
+            if musica.idioma.nome == resultados[id_escolhido].nome:
+         
                 self.__tela.mostrar_musica(musica)
 
     def atualizar_musica(self):
@@ -213,6 +224,7 @@ class ControladorMusica:
             musica.artista = dados_musica["artista"]
             musica.genero = dados_musica["genero"]
             musica.idioma = dados_musica["idioma"]
+            self.__controlador_biblioteca.bibliotecademusica.musicas.update(musica)
 
             self.__tela.mostrar_mensagem("Tudo certo, música atualziada!")
         else:

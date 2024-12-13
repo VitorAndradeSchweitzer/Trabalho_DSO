@@ -10,3 +10,5 @@ class Genero(AtributosCategorias):
     
     def __str__(self):
         return f"Gênero: {self.nome}"
+    
+# Genero1 = Genero()

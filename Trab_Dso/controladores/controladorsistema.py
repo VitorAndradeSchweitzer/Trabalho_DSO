@@ -27,14 +27,15 @@ class ControladorSistema:
         }
 
         while True:
-            try:
+            # try:
                 opcao = self.__tela.mostrar_opcoes()
                 if opcao in opcoes:
                     opcoes[opcao]()
                 else:
                     self.__tela.mostra_menssagem("Opção invalida")
-            except ValueError:
-                self.__tela.mostra_menssagem("Por favor coloque um valor valido")
+            # except ValueError:
+            #     print(f"{opcao}")
+            #     self.__tela.mostra_menssagem("Por favor coloque um valor valido")
 
     @property
     def cliente_controlador(self):

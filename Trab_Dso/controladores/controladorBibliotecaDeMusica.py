@@ -16,43 +16,49 @@ class ControladorBibliotecaDeMusica:
     @property
     def bibliotecademusica(self):
         return self.__bibliotecademusica
+    
     def retornar_ultimo_codigo(self) -> int:
-        return len(self.__bibliotecademusica.musicas) + 1
+        
+        return len(self.__bibliotecademusica.musicas.get_all()) + 1
 
     def adicionar_musica(self, musica: Musica) -> bool:
         if self.__bibliotecademusica.adicionar_musica(musica) == "musica adicionada":
             return True
         return False
 
-    def buscar_musica(self, codigo: str) -> Musica:
+    def buscar_musica(self, codigo: int) -> Musica:
         return self.__bibliotecademusica.buscar_musica_por_codigo(codigo)
-
-    def pegar_musica_por_artista(self, artista: Artista) -> list:
-        return self.__bibliotecademusica.pegar_musica_por_artista(artista)
-
-    def pegar_musica_por_genero(self, genero: Genero) -> list:
-        return self.__bibliotecademusica.pegar_musica_por_genero(genero)
-
-    def pegar_musica_por_idioma(self, idioma: Idioma) -> list:
-        return self.__bibliotecademusica.pegar_musica_por_idioma(idioma)
     
     def lista_musica(self):
-        return self.__bibliotecademusica.musicas
+        return self.__bibliotecademusica.musicas.get_all()
         
     def lista_de_artista(self):
-        return self.__bibliotecademusica.artistas
+        return self.__bibliotecademusica.artistas.get_all()
     def retornar_artista_por_id(self, id):
-        return self.__bibliotecademusica.artistas[id]
+        cont = 0
+        for artista in self.__bibliotecademusica.artistas.get_all():
+            if cont == id:
+                return artista
+            cont+=1
+            
     
     def lista_de_genero(self):
-        return self.__bibliotecademusica.generos
+        return self.__bibliotecademusica.generos.get_all()
     def retornar_genero_por_id(self, id):
-        return self.__bibliotecademusica.generos[id]
+        cont = 0
+        for genero in self.__bibliotecademusica.generos.get_all():
+            if cont == id:
+                return genero
+            cont+=1
     
     def lista_de_idioma(self):
-        return  self.__bibliotecademusica.idiomas
+        return  self.__bibliotecademusica.idiomas.get_all()
     def retornar_idioma_por_id(self, id):
-        return self.__bibliotecademusica.idiomas[id]
+        cont = 0
+        for idioma in self.__bibliotecademusica.idiomas.get_all():
+            if cont == id:
+                return idioma
+            cont+=1
 
     @property
     def tela(self):

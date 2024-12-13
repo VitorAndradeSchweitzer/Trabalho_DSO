@@ -1,19 +1,28 @@
 from ..entidades.mesa import Mesa
 from ..telas.telamesa import TelaMesa
-
+from ..DAOs.mesa_DAO import MesaDAO
 class ControladorMesa():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__mesas = []
+        self.__mesas_DAO = MesaDAO()
         self.__tela = TelaMesa()
 
 
     def incluir_mesa(self):
-        numero = len(self.__mesas)
+        mesas = self.__mesas_DAO.get_all()
+        numeros = []
+        numeros = [mesa.numero for mesa in mesas]
+        numeros.sort() 
 
-        novamesa = Mesa(numero = numero+1)
-        self.__mesas.append(novamesa)
-        self.__tela.mensagem_de_criação(numero+1)
+        numero = None
+        for i in range(1, len(numeros) + 2):  
+            if i not in numeros:
+                numero = i
+                break
+
+        novamesa = Mesa(numero = numero)
+        self.__mesas_DAO.add(novamesa)
+        self.__tela.mensagem_de_criação(numero)
 
     def excluir_mesa(self):
         self.lista_mesa()
@@ -21,21 +30,20 @@ class ControladorMesa():
         mesa = self.buscar_mesa_por_numero(numero_mesa)
 
         if mesa is not None:
-            self.__mesas.remove(mesa)
+            self.__mesas_DAO.remove(int(numero_mesa))
             self.lista_mesa()
             self.__tela.mensagem_de_exclusão(numero_mesa)
         else:
             self.__tela.mostra_mensagem("MESA NÃO EXISTE!!!!!!!")
 
     def buscar_mesa_por_numero(self, numero):
-        for mesa in self.__mesas:
-            if int(mesa.numero) == int(numero):
+        mesa = self.__mesas_DAO.get(int(numero))
+        if mesa:
                 return mesa
-        print(f"Não existe uma mesa com o número {numero}")
         return None
     
     def lista_mesa(self):
-        for mesa in self.__mesas:
+        for mesa in self.__mesas_DAO.get_all():
             clientes = ""
             for cliente in mesa.clientes:
                 clientes += cliente.nome
@@ -59,26 +67,32 @@ class ControladorMesa():
         mesa = self.buscar_mesa_por_numero(numero_mesa)
 
         self.__controlador_sistema.cliente_controlador.lista_cliente()
-        cpf = self.__controlador_sistema.cliente_controlador.tela.seleciona_cliente()
+        cpf = self.__controlador_sistema.cliente_controlador.tela.seleciona_cliente(self.__controlador_sistema.cliente_controlador.clientes_DAO.get_all())
         cliente = self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cpf)
 
         mesa.clientes.append(cliente)
+        self.__mesas_DAO.update(mesa)
 
     def desalocar_cliente(self):
-        for mesa in self.__mesas:
+        for mesa in self.__mesas_DAO.get_all():
             if len(mesa.clientes) > 0:
                 mesa = {"numero": mesa.numero, "clientes":mesa.clientes}
                 self.__tela.mostrar_mesa(mesa)
         numero_mesa = self.__tela.seleciona_mesa()
         mesa = self.buscar_mesa_por_numero(numero_mesa)
+        
         for cliente in mesa.clientes:
                 dados = {"nome":cliente.nome, "cpf": cliente.cpf, "email":cliente.email, "telefone":cliente.telefone}
-                self.__controlador_sistema.cliente_controlador.tela.mostrar_cliente(dados)
+                self.__controlador_sistema.cliente_controlador.tela.mostrar_cliente(self.__controlador_sistema.cliente_controlador.clientes_DAO.get_all())
 
-        cpf = self.__controlador_sistema.cliente_controlador.tela.seleciona_cliente()
+        cpf = self.__controlador_sistema.cliente_controlador.tela.seleciona_cliente(self.__controlador_sistema.cliente_controlador.clientes_DAO.get_all())
+    
         cliente = self.__controlador_sistema.cliente_controlador.buscar_cliente_cpf(cpf)
-
+        
         mesa.clientes.remove(cliente)
+        self.__mesas_DAO.update(mesa)
+     
+
 
     def sair(self):
         self.__controlador_sistema.abrir_tela()

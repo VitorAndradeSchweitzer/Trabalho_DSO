@@ -2,14 +2,17 @@ from .musica import Musica
 from .genero import Genero
 from .idioma import Idioma
 from .artista import Artista
-
+from ..DAOs.musica_DAO import MusicaDAO
+from ..DAOs.idioma_DAO  import IdiomaDAO
+from ..DAOs.genero_DAO import GeneroDAO
+from ..DAOs.artista_DAO import ArtistaDAO
 
 class BibliotecaDeMusicas:
     def __init__(self):
-        self.__musicas = []
-        self.__artistas = []
-        self.__idiomas = []
-        self.__generos = []
+        self.__musicas = MusicaDAO()
+        self.__artistas = ArtistaDAO()
+        self.__idiomas = IdiomaDAO()
+        self.__generos = GeneroDAO()
 
     @property
     def musicas(self):
@@ -43,58 +46,76 @@ class BibliotecaDeMusicas:
     def generos(self, genero: Genero):
         self.__generos.append(genero)
 
-    def buscar_musica_por_codigo(self, codigo):
-        for musica in self.__musicas:
-            if musica.codigo == codigo:
-                return musica
+
         
 
         
     def buscar_genero(self):
         cont = 0
-        for genero in self.__generos:
+        generos = list(self.__generos.get_all()) 
+        for genero in generos:
             print(f"{genero} [{cont}]")
             cont += 1
         escolha = int(input("Insira o id do gênero escolhido: "))
-        return self.__generos[escolha]
+        if 0 <= escolha < len(generos):
+            return generos[escolha]  
+        else:
+            print("Escolha inválida!")
+            return None
 
     
     def buscar_artista(self):
         cont = 0
-        for artista in self.__artistas:
+        artistas = list(self.__artistas.get_all()) 
+        for artista in artistas:
             print(f"{artista} [{cont}]")
             cont += 1
         escolha = int(input("Insira o id do artistas/banda escolhido: "))
-        return self.__artistas[escolha]
+        if 0 <= escolha < len(artistas):
+            return artistas[escolha] 
+        else:
+            print("Escolha inválida!")
+            return None
 
     
     def buscar_idioma(self):
         cont = 0
-        for idioma in self.__idiomas:
+        idiomas = list(self.__idiomas.get_all()) 
+        for idioma in idiomas:
             print(f"{idioma} [{cont}]")
-            cont +=1
+            cont += 1
         escolha = int(input("Insira o id do idioma escolhido: "))
-        return self.__idiomas[escolha]
+        if 0 <= escolha < len(idiomas):
+            return idiomas[escolha] 
+        else:
+            print("Escolha inválida!")
+            return None
     
 
 
     def adicionar_musica(self, musica: Musica):
+
         if isinstance(musica, Musica):
-            if musica not in self.__musicas:
-                self.__musicas.append(musica)
-            if musica.genero not in self.__generos:
-                self.__generos.append(musica.genero)
-            if musica.idioma not in self.__idiomas:
-                self.__idiomas.append(musica.idioma)
-            if musica.artista not in self.__artistas:
-                self.__artistas.append(musica.artista)
+            if not self.__musicas.get(musica.codigo):
+                self.__musicas.add(musica)
+                          
+            print("aqui")  
+            if  not self.__idiomas.get(musica.idioma.nome):
+   
+                self.__idiomas.add(musica.idioma)
+          
+            if not self.__generos.get(musica.genero.nome):
+                self.__generos.add(musica.genero)
+        
+            if not self.__artistas.get(musica.artista.nome):
+                self.__artistas.add(musica.artista)
+   
             return "musica adicionada"
 
 
 
     def remover_musica(self, musica: Musica):
         if isinstance(musica, Musica):
-            if musica in self.__musicas:
                 self.__musicas.remove(musica)
 
 
@@ -104,6 +125,4 @@ class BibliotecaDeMusicas:
         return False
 
     def buscar_musica_por_codigo(self,codigo):
-        for musica in self.__musicas:
-            if musica.codigo == codigo:
-                return musica
+        return self.__musicas.get(codigo)
